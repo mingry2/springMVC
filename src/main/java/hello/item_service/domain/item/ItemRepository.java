@@ -1,5 +1,6 @@
 package hello.item_service.domain.item;
 
+import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
@@ -7,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@ResponseBody
+@Repository
 public class ItemRepository {
 
     // DB 연동 X -> id 생성을 위해
