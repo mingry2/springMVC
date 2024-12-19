@@ -111,6 +111,13 @@ public class BasicItemController {
 
     }
 
+    // 삭제
+    @PostMapping("/{itemId}/delete")
+    public String delete(@PathVariable Long itemId) {
+        itemRepository.delete(itemId);
+        return "redirect:/basic/items";
+    }
+
     /**
      * 테스트용 더미 데이터 추가
      */

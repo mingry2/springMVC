@@ -44,6 +44,11 @@ public class ItemRepository {
     }
 
     // 삭제
+    public void delete(Long id) {
+        store.remove(id);
+    }
+
+    // test용
     public void clearStore() {
         store.clear();
     }
