@@ -36,7 +36,8 @@ public class FormItemController {
 
     // 등록폼
     @GetMapping("/add")
-    public String addForm() {
+    public String addForm(Model model) {
+        model.addAttribute("item", new Item());
         return "basic/addForm";
     }
 
