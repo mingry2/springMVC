@@ -1,9 +1,10 @@
-package hello.item_service.web.basic;
+package hello.item_service.web.form;
 
 import hello.item_service.domain.item.Item;
 import hello.item_service.domain.item.ItemRepository;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +12,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
+@Slf4j
 @Controller
 @RequestMapping("/form/items")
 @RequiredArgsConstructor
@@ -23,7 +25,7 @@ public class FormItemController {
     public String items(Model model) {
         List<Item> items = itemRepository.findAll();
         model.addAttribute("items", items);
-        return "basic/items";
+        return "form/items";
     }
 
     // 상세 조회
@@ -31,14 +33,14 @@ public class FormItemController {
     public String item(Model model, @PathVariable("itemId") Long itemId) {
         Item item = itemRepository.findById(itemId);
         model.addAttribute("item", item);
-        return "basic/item";
+        return "form/item";
     }
 
     // 등록폼
     @GetMapping("/add")
     public String addForm(Model model) {
         model.addAttribute("item", new Item());
-        return "basic/addForm";
+        return "form/addForm";
     }
 
     // 등록
@@ -52,7 +54,7 @@ public class FormItemController {
 
         model.addAttribute("item", item);
 
-        return "basic/item";
+        return "form/item";
     }
 
 //    @PostMapping("/add")
@@ -61,7 +63,7 @@ public class FormItemController {
 
 //        model.addAttribute("item", item);
 
-        return "basic/item";
+        return "form/item";
     }
 
 //    @PostMapping("/add")
@@ -70,27 +72,28 @@ public class FormItemController {
 
         itemRepository.save(item);
 
-        return "basic/item";
+        return "form/item";
     }
 
 //    @PostMapping("/add")
     public String addItemV4(Item item) {
         itemRepository.save(item);
-        return "basic/item";
+        return "form/item";
     }
 
 //    @PostMapping("/add")
     public String addItemV5(Item item) {
         itemRepository.save(item);
-        return "redirect:/basic/items/" + item.getId();
+        return "redirect:/form/items/" + item.getId();
     }
 
     @PostMapping("/add")
     public String addItemV6(Item item, RedirectAttributes redirectAttributes) {
+        log.info("item.open={}", item.getOpen());
         Item savedItem = itemRepository.save(item);
         redirectAttributes.addAttribute("itemId", savedItem.getId());
         redirectAttributes.addAttribute("status", true);
-        return "redirect:/basic/items/{itemId}";
+        return "redirect:/form/items/{itemId}";
     }
 
     // 수정폼
@@ -98,7 +101,7 @@ public class FormItemController {
     public String editForm(@PathVariable Long itemId, Model model) {
         Item findItem = itemRepository.findById(itemId);
         model.addAttribute("item", findItem);
-        return "basic/editForm";
+        return "form/editForm";
 
     }
 
@@ -108,7 +111,7 @@ public class FormItemController {
                        @ModelAttribute Item item) {
         itemRepository.update(itemId, item);
 
-        return "redirect:/basic/items/{itemId}";
+        return "redirect:/form/items/{itemId}";
 
     }
 
@@ -116,16 +119,16 @@ public class FormItemController {
     @PostMapping("/{itemId}/delete")
     public String delete(@PathVariable Long itemId) {
         itemRepository.delete(itemId);
-        return "redirect:/basic/items";
+        return "redirect:/form/items";
     }
 
     /**
      * 테스트용 더미 데이터 추가
      */
-//    @PostConstruct
-//    public void init() {
-//        itemRepository.save(new Item("itemA", 10000, 10));
-//        itemRepository.save(new Item("itemB", 20000, 20));
-//    }
+    @PostConstruct
+    public void init() {
+        itemRepository.save(new Item("itemA", 10000, 10));
+        itemRepository.save(new Item("itemB", 20000, 20));
+    }
 
 }
