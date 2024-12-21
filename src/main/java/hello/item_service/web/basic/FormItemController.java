@@ -12,9 +12,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.List;
 
 @Controller
-@RequestMapping("/basic/items")
+@RequestMapping("/form/items")
 @RequiredArgsConstructor
-public class BasicItemController {
+public class FormItemController {
 
     private final ItemRepository itemRepository;
 
@@ -121,10 +121,10 @@ public class BasicItemController {
     /**
      * 테스트용 더미 데이터 추가
      */
-    @PostConstruct
-    public void init() {
-        itemRepository.save(new Item("itemA", 10000, 10));
-        itemRepository.save(new Item("itemB", 20000, 20));
-    }
+//    @PostConstruct
+//    public void init() {
+//        itemRepository.save(new Item("itemA", 10000, 10));
+//        itemRepository.save(new Item("itemB", 20000, 20));
+//    }
 
 }

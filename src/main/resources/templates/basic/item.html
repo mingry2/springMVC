@@ -50,6 +50,7 @@
             <button class="w-100 btn btn-secondary btn-lg" onclick="location.href='items.html'"
                     th:onclick="|location.href='@{/basic/items}'|" type="button">목록으로</button>
         </div>
+        <!-- 삭제 기능 추가 -->
         <form th:action="@{/basic/items/{itemId}/delete(itemId=${item.id})}" method="post">
             <button type="submit">Delete</button>
         </form>
