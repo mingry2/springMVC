@@ -1,4 +1,4 @@
-package hello.item_service.web.form;
+package hello.item_service.web.message;
 
 import hello.item_service.domain.item.DeliveryCode;
 import hello.item_service.domain.item.Item;
@@ -19,9 +19,9 @@ import java.util.Map;
 
 @Slf4j
 @Controller
-@RequestMapping("/form/items")
+@RequestMapping("/message/items")
 @RequiredArgsConstructor
-public class FormItemController {
+public class MessageController {
 
     private final ItemRepository itemRepository;
 
@@ -55,7 +55,7 @@ public class FormItemController {
     public String items(Model model) {
         List<Item> items = itemRepository.findAll();
         model.addAttribute("items", items);
-        return "form/items";
+        return "message/items";
     }
 
     // 상세 조회
@@ -64,7 +64,7 @@ public class FormItemController {
         Item item = itemRepository.findById(itemId);
         model.addAttribute("item", item);
 
-        return "form/item";
+        return "message/item";
     }
 
     // 등록폼
@@ -72,7 +72,7 @@ public class FormItemController {
     public String addForm(Model model) {
         model.addAttribute("item", new Item());
 
-        return "form/addForm";
+        return "message/addForm";
     }
 
     // 등록
@@ -86,7 +86,7 @@ public class FormItemController {
 
         model.addAttribute("item", item);
 
-        return "form/item";
+        return "message/item";
     }
 
 //    @PostMapping("/add")
@@ -95,7 +95,7 @@ public class FormItemController {
 
 //        model.addAttribute("item", item);
 
-        return "form/item";
+        return "message/item";
     }
 
 //    @PostMapping("/add")
@@ -104,19 +104,19 @@ public class FormItemController {
 
         itemRepository.save(item);
 
-        return "form/item";
+        return "message/item";
     }
 
 //    @PostMapping("/add")
     public String addItemV4(Item item) {
         itemRepository.save(item);
-        return "form/item";
+        return "message/item";
     }
 
 //    @PostMapping("/add")
     public String addItemV5(Item item) {
         itemRepository.save(item);
-        return "redirect:/form/items/" + item.getId();
+        return "redirect:/message/items/" + item.getId();
     }
 
     @PostMapping("/add")
@@ -128,7 +128,7 @@ public class FormItemController {
         Item savedItem = itemRepository.save(item);
         redirectAttributes.addAttribute("itemId", savedItem.getId());
         redirectAttributes.addAttribute("status", true);
-        return "redirect:/form/items/{itemId}";
+        return "redirect:/message/items/{itemId}";
     }
 
     // 수정폼
@@ -137,7 +137,7 @@ public class FormItemController {
         Item findItem = itemRepository.findById(itemId);
         model.addAttribute("item", findItem);
 
-        return "form/editForm";
+        return "message/editForm";
 
     }
 
@@ -147,7 +147,7 @@ public class FormItemController {
                        @ModelAttribute Item item) {
         itemRepository.update(itemId, item);
 
-        return "redirect:/form/items/{itemId}";
+        return "redirect:/message/items/{itemId}";
 
     }
 
@@ -155,7 +155,7 @@ public class FormItemController {
     @PostMapping("/{itemId}/delete")
     public String delete(@PathVariable Long itemId) {
         itemRepository.delete(itemId);
-        return "redirect:/form/items";
+        return "redirect:/message/items";
     }
 
     /**
