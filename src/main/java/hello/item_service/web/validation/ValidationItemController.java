@@ -1,4 +1,4 @@
-package hello.item_service.web.message;
+package hello.item_service.web.validation;
 
 import hello.item_service.domain.item.DeliveryCode;
 import hello.item_service.domain.item.Item;
@@ -19,9 +19,9 @@ import java.util.Map;
 
 @Slf4j
 @Controller
-@RequestMapping("/message/items")
+@RequestMapping("/validation/v1/items")
 @RequiredArgsConstructor
-public class MessageController {
+public class ValidationItemController {
 
     private final ItemRepository itemRepository;
 
@@ -55,7 +55,7 @@ public class MessageController {
     public String items(Model model) {
         List<Item> items = itemRepository.findAll();
         model.addAttribute("items", items);
-        return "message/items";
+        return "validation/v1/items";
     }
 
     // 상세 조회
@@ -64,7 +64,7 @@ public class MessageController {
         Item item = itemRepository.findById(itemId);
         model.addAttribute("item", item);
 
-        return "message/item";
+        return "validation/v1/item";
     }
 
     // 등록폼
@@ -72,7 +72,7 @@ public class MessageController {
     public String addForm(Model model) {
         model.addAttribute("item", new Item());
 
-        return "message/addForm";
+        return "validation/v1/addForm";
     }
 
     // 등록
@@ -86,7 +86,7 @@ public class MessageController {
 
         model.addAttribute("item", item);
 
-        return "message/item";
+        return "validation/v1/item";
     }
 
 //    @PostMapping("/add")
@@ -95,7 +95,7 @@ public class MessageController {
 
 //        model.addAttribute("item", item);
 
-        return "message/item";
+        return "validation/v1/item";
     }
 
 //    @PostMapping("/add")
@@ -104,19 +104,19 @@ public class MessageController {
 
         itemRepository.save(item);
 
-        return "message/item";
+        return "validation/v1/item";
     }
 
 //    @PostMapping("/add")
     public String addItemV4(Item item) {
         itemRepository.save(item);
-        return "message/item";
+        return "validation/v1/item";
     }
 
 //    @PostMapping("/add")
     public String addItemV5(Item item) {
         itemRepository.save(item);
-        return "redirect:/message/items/" + item.getId();
+        return "redirect:/validation/v1/items/" + item.getId();
     }
 
     @PostMapping("/add")
@@ -128,7 +128,7 @@ public class MessageController {
         Item savedItem = itemRepository.save(item);
         redirectAttributes.addAttribute("itemId", savedItem.getId());
         redirectAttributes.addAttribute("status", true);
-        return "redirect:/message/items/{itemId}";
+        return "redirect:/validation/v1/items/{itemId}";
     }
 
     // 수정폼
@@ -137,7 +137,7 @@ public class MessageController {
         Item findItem = itemRepository.findById(itemId);
         model.addAttribute("item", findItem);
 
-        return "message/editForm";
+        return "validation/v1/editForm";
 
     }
 
@@ -147,7 +147,7 @@ public class MessageController {
                        @ModelAttribute Item item) {
         itemRepository.update(itemId, item);
 
-        return "redirect:/message/items/{itemId}";
+        return "redirect:/validation/v1/items/{itemId}";
 
     }
 
@@ -155,7 +155,7 @@ public class MessageController {
     @PostMapping("/{itemId}/delete")
     public String delete(@PathVariable Long itemId) {
         itemRepository.delete(itemId);
-        return "redirect:/message/items";
+        return "redirect:/validation/v1/items";
     }
 
     /**
