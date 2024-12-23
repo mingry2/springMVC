@@ -8,6 +8,10 @@
         .container {
             max-width: 560px;
         }
+        .field-error {
+            border-color: #dc3545;
+            color: #dc3545;
+        }
     </style>
 </head>
 <body>
@@ -21,17 +25,38 @@
     <h4 class="mb-3">상품 입력</h4>
 
     <form action="item.html" th:action th:object="${item}" method="post">
+
+        <!-- global errors -->
+        <div th:if="${errors?.containsKey('globalError')}">
+            <p class="field-error" th:text="${errors['globalError']}">전체 오류 메시지</p>
+        </div>
+
         <div>
             <label for="itemName" th:text="#{label.item.itemName}">상품명</label>
-            <input type="text" th:field="*{itemName}" class="form-control" placeholder="이름을 입력하세요">
+            <input type="text" th:field="*{itemName}"
+                   th:class="${errors?.containsKey('itemName')} ? 'form-control' : _"
+                   class="form-control" placeholder="이름을 입력하세요">
+            <div th:if="${errors?.containsKey('itemName')}">
+                <p class="field-error" th:text="${errors['itemName']}">상품명 오류</p>
+            </div>
         </div>
         <div>
             <label for="price" th:text="#{label.item.price}">가격</label>
-            <input type="text" th:field="*{price}" class="form-control" placeholder="가격을 입력하세요">
+            <input type="text" th:field="*{price}"
+                   th:class="${errors?.containsKey('price')} ? 'form-control' : _"
+                   class="form-control" placeholder="가격을 입력하세요">
+            <div th:if="${errors?.containsKey('price')}">
+                <p class="field-error" th:text="${errors['price']}">가격 범위 오류</p>
+            </div>
         </div>
         <div>
             <label for="quantity" th:text="#{label.item.quantity}">수량</label>
-            <input type="text" th:field="*{quantity}" class="form-control" placeholder="수량을 입력하세요">
+            <input type="text" th:field="*{quantity}"
+                   th:class="${errors?.containsKey('quantity')} ? 'form-control' : _"
+                   class="form-control" placeholder="수량을 입력하세요">
+            <div th:if="${errors?.containsKey('quantity')}">
+                <p class="field-error" th:text="${errors['quantity']}">수량 오류</p>
+            </div>
         </div>
 
         <hr class="my-4">
