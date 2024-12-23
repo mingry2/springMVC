@@ -85,6 +85,14 @@ public class ValidationItemControllerV3 {
     @PostMapping("/add")
     public String addItem(@Validated Item item, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
 
+        // 애노테이션으로 처리할 수 있는 기술이 있지만 사용에 제약이 많음 -> 오브젝트에러는 자바코드로 따로 처리하는 것을 권장
+        if (item.getPrice() != null && item.getQuantity() != null) {
+            int resultPrice = item.getPrice() * item.getQuantity();
+            if (resultPrice < 10000) {
+                bindingResult.reject("totalPriceMin", new Object[]{10000, resultPrice}, null);
+            }
+        }
+
         if (bindingResult.hasErrors()) {
             log.info("bindingResult={}", bindingResult);
 
