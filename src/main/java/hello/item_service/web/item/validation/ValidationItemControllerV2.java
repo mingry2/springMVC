@@ -1,4 +1,4 @@
-package hello.item_service.web.validation;
+package hello.item_service.web.item.validation;
 
 import hello.item_service.domain.item.DeliveryCode;
 import hello.item_service.domain.item.Item;
@@ -13,7 +13,6 @@ import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
-import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;

@@ -1,8 +1,8 @@
-package hello.item_service.web.validation;
+package hello.item_service.web.item.validation;
 
 import hello.item_service.domain.item.*;
-import hello.item_service.web.validation.form.ItemSaveForm;
-import hello.item_service.web.validation.form.ItemUpdateForm;
+import hello.item_service.web.item.form.ItemSaveForm;
+import hello.item_service.web.item.form.ItemUpdateForm;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +22,7 @@ import java.util.Map;
 @Controller
 @RequestMapping("/validation/v4/items")
 @RequiredArgsConstructor
-public class ValidationItemControllerV4 {
+public class ItemController {
 
     private final ItemRepository itemRepository;
 

@@ -1,8 +1,7 @@
-package hello.item_service.web.validation;
+package hello.item_service.web.item.validation;
 
-import hello.item_service.web.validation.form.ItemSaveForm;
+import hello.item_service.web.item.form.ItemSaveForm;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
