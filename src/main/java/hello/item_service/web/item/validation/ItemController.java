@@ -20,12 +20,13 @@ import java.util.Map;
 
 @Slf4j
 @Controller
-@RequestMapping("/validation/v4/items")
+@RequestMapping("/items")
 @RequiredArgsConstructor
 public class ItemController {
 
     private final ItemRepository itemRepository;
 
+    /* 체크박스, 라디오버튼, 셀렉트 박스 실습
     @ModelAttribute("regions")
     public Map<String, String> region() {
         Map<String, String> regions = new LinkedHashMap<>();
@@ -49,6 +50,7 @@ public class ItemController {
 
         return deliveryCodes;
     }
+    */
 
 
     // 목록 조회
@@ -56,7 +58,8 @@ public class ItemController {
     public String items(Model model) {
         List<Item> items = itemRepository.findAll();
         model.addAttribute("items", items);
-        return "validation/v4/items";
+
+        return "items/items";
     }
 
     // 상세 조회
@@ -65,7 +68,7 @@ public class ItemController {
         Item item = itemRepository.findById(itemId);
         model.addAttribute("item", item);
 
-        return "validation/v4/item";
+        return "items/item";
     }
 
     // 등록폼
@@ -73,13 +76,14 @@ public class ItemController {
     public String addForm(Model model) {
         model.addAttribute("item", new Item());
 
-        return "validation/v4/addForm";
+        return "items/addForm";
     }
 
     // 등록
     @PostMapping("/add")
     public String addItem(@Validated @ModelAttribute("item") ItemSaveForm form, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 
+        //특정 필드 예외가 아닌 전체 예외
         if (form.getPrice() != null && form.getQuantity() != null) {
             int resultPrice = form.getPrice() * form.getQuantity();
             if (resultPrice < 10000) {
@@ -90,7 +94,7 @@ public class ItemController {
         if (bindingResult.hasErrors()) {
             log.info("bindingResult={}", bindingResult);
 
-            return "validation/v4/addForm";
+            return "items/addForm";
         }
 
         // 성공 로직
@@ -99,7 +103,8 @@ public class ItemController {
         Item savedItem = itemRepository.save(updateItem);
         redirectAttributes.addAttribute("itemId", savedItem.getId());
         redirectAttributes.addAttribute("status", true);
-        return "redirect:/validation/v4/items/{itemId}";
+
+        return "redirect:/items/{itemId}";
     }
 
     // 수정폼
@@ -108,8 +113,7 @@ public class ItemController {
         Item findItem = itemRepository.findById(itemId);
         model.addAttribute("item", findItem);
 
-        return "validation/v4/editForm";
-
+        return "items/editForm";
     }
 
     // 수정
@@ -119,6 +123,7 @@ public class ItemController {
                        @ModelAttribute("item") ItemUpdateForm form,
                        BindingResult bindingResult) {
 
+        //특정 필드 예외가 아닌 전체 예외
         if (form.getPrice() != null && form.getQuantity() != null) {
             int resultPrice = form.getPrice() * form.getQuantity();
             if (resultPrice < 10000) {
@@ -128,21 +133,22 @@ public class ItemController {
 
         if (bindingResult.hasErrors()) {
             log.info("bindingResult={}", bindingResult);
-            return "validation/v4/editForm";
+
+            return "items/editForm";
         }
 
         Item updateItem = new Item(form.getItemName(), form.getPrice(), form.getQuantity());
         itemRepository.update(itemId, updateItem);
 
-        return "redirect:/validation/v4/items/{itemId}";
-
+        return "redirect:/items/{itemId}";
     }
 
     // 삭제
     @PostMapping("/{itemId}/delete")
     public String delete(@PathVariable Long itemId) {
         itemRepository.delete(itemId);
-        return "redirect:/validation/v4/items";
+
+        return "redirect:/items";
     }
 
     /**
