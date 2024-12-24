@@ -86,17 +86,17 @@
     <div class="row">
         <div class="col">
             <button class="w-100 btn btn-primary btn-lg" onclick="location.href='editForm.html'"
-                    th:onclick="|location.href='@{/validation/v4/items/{itemId}/edit(itemId=${item.id})}'|" type="button"
+                    th:onclick="|location.href='@{/items/{itemId}/edit(itemId=${item.id})}'|" type="button"
                     th:text="#{page.updateItem}">상품 수정</button>
         </div>
         <div class="col">
             <button class="w-100 btn btn-secondary btn-lg" onclick="location.href='items.html'"
-                    th:onclick="|location.href='@{/validation/v4/items}'|" type="button" th:text="#{button.toItems}">목록으로</button>
+                    th:onclick="|location.href='@{/items}'|" type="button" th:text="#{button.toItems}">목록으로</button>
         </div>
     </div>
     <hr class="my-4">
     <!-- 삭제 기능 추가 -->
-    <form th:action="@{/validation/v4/items/{itemId}/delete(itemId=${item.id})}" method="post">
+    <form th:action="@{/items/{itemId}/delete(itemId=${item.id})}" method="post">
         <div class="row">
             <div class="col">
                 <button class="w-100 btn btn-primary btn-lg" type="submit" th:text="#{button.delete}">상품 삭제</button>
