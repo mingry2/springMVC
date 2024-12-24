@@ -151,13 +151,4 @@ public class ItemController {
         return "redirect:/items";
     }
 
-    /**
-     * 테스트용 더미 데이터 추가
-     */
-    @PostConstruct
-    public void init() {
-        itemRepository.save(new Item("itemA", 10000, 10));
-        itemRepository.save(new Item("itemB", 20000, 20));
-    }
-
 }
